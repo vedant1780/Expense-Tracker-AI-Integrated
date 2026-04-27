@@ -1,7 +1,8 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "http://localhost:5000/api"
+  baseURL: "https://expense-tracker-ai-integrated-1.onrender.com/api"
 });
+console.log(import.meta.env.VITE_API_URL);
 
 export default API;
