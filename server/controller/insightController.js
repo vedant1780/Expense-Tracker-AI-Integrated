@@ -4,9 +4,10 @@ import { predictMonthlySpend } from "../services/predictionService.js";
 import { generateInsights } from "../services/decisionEngine.js";
 
 // TEMP user
-const USER_ID = "661f1b2c9a1234567890abcd";
+
 
 export const getInsights = async (req, res) => {
+  const USER_ID = req.user.id;
   try {
     const expenses = await Expense.find({ userId: USER_ID });
 

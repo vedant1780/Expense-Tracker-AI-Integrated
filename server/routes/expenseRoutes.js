@@ -3,14 +3,16 @@ import {
   addExpense,
   getExpenses,
   deleteExpense,
-  getSpendByCategory
+  getSpendByCategory,
+  onboardingData
 } from "../controller/expenseController.js"
-
+import {authMiddleware} from "../middlewares/authMiddleware.js"
 const router = express.Router();
 
-router.post("/", addExpense);
-router.get("/", getExpenses);
-router.delete("/:id", deleteExpense);
-router.get("/category",getSpendByCategory)
+router.post("/",authMiddleware, addExpense);
+router.get("/", authMiddleware,getExpenses);
+router.delete("/:id",authMiddleware, deleteExpense);
+router.get("/category",authMiddleware,getSpendByCategory);
+router.post("/onboarding", authMiddleware,onboardingData);
 
 export default router;

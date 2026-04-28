@@ -1,10 +1,12 @@
 import Expense from "../models/expense.model.js";
-
+import User from "../models/user.model.js";
 // TEMP userId (replace later with req.user.id)
-const USER_ID = "661f1b2c9a1234567890abcd";
+
 
 
 export const addExpense = async (req, res) => {
+  const USER_ID = req.user?.id;
+  console.log(USER_ID)
   try {
     const expense = await Expense.create({
       ...req.body,
@@ -20,6 +22,7 @@ export const addExpense = async (req, res) => {
 
 export const getExpenses = async (req, res) => {
   try {
+    const USER_ID = req.user?.id;
     const expenses = await Expense.find({ userId: USER_ID });
     res.json(expenses);
   } catch (err) {
@@ -39,6 +42,7 @@ export const deleteExpense = async (req, res) => {
 import mongoose from "mongoose";
 
 export const getSpendByCategory = async (req, res) => {
+  const USER_ID = req.user?.id;
   try {
     const result = await Expense.aggregate([
       {
@@ -65,6 +69,35 @@ export const getSpendByCategory = async (req, res) => {
     ]);
 
     res.json(result);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+//import User from "../models/User.js";
+
+export const onboardingData = async (req, res) => {
+  try {
+    const userId = req.user.id;
+
+    const { monthlyIncome, savingsGoal } = req.body;
+
+    const user = await User.findByIdAndUpdate(
+      userId,
+      {
+        monthlyIncome,
+        savingsGoal,
+      },
+      { new: true }
+    );
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.json({
+      message: "Onboarding saved",
+      user,
+    });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
