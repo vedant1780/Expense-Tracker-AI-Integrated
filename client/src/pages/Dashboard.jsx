@@ -183,20 +183,27 @@ export default function Dashboard() {
     setActiveMonth(currentMonthName);
   }, [currentMonthName]);
 
-  useEffect(() => {
-    setLoading(true);
-    setError(null);
-    API.get("/insights")
-      .then((res) => {
-        setData(res.data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error(err);
-        setError("Failed to load insights. Please try again.");
-        setLoading(false);
-      });
-  }, []);
+ useEffect(() => {
+  setLoading(true);
+  setError(null);
+
+  const token = localStorage.getItem("token");
+
+  API.get("/insights", {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+    .then((res) => {
+      setData(res.data);
+      setLoading(false);
+    })
+    .catch((err) => {
+      console.error(err);
+      setError("Failed to load insights. Please try again.");
+      setLoading(false);
+    });
+}, []);
 
   // ── Loading state ──
   if (loading) {
