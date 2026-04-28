@@ -7,7 +7,7 @@ export default function Onboarding() {
   const [submitted, setSubmitted] = useState(false);
 const navigate = useNavigate();
 
-const API = "https://expense-tracker-ai-integrated-1.onrender.com/api";
+const API = "https://expense-tracker-ai-integrated-2.onrender.com/api";
 
 const handleSubmit = async (e) => {
   e.preventDefault();

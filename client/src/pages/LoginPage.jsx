@@ -75,8 +75,8 @@ export default function AuthPage() {
     setIsSubmitting(true);
 
     const url = isLogin
-      ? 'https://expense-tracker-ai-integrated-1.onrender.com/api/auth/login'
-      : 'https://expense-tracker-ai-integrated-1.onrender.com/api/auth/register';
+      ? 'https://expense-tracker-ai-integrated-2.onrender.com/api/auth/login'
+      : 'https://expense-tracker-ai-integrated-2.onrender.com/api/auth/register';
 
     const payload = isLogin
       ? {
